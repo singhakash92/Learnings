@@ -1,0 +1,48 @@
+1) git clone url
+2) git remote add origin repourl  // if we have something in local we did git init and now want to move this data to repo point this folder to repourl 
+
+
+making changes
+2) git status // status of all the changes made in this file
+
+3) git add [filename] or git add . // this add the particular file on stage inorder to commit it
+
+4) git commit -m "message"  // this commits the changes which are staged
+
+
+
+
+branch info
+5) git checkout -b [branchname]  // it creates a new branch and moves to the new branch
+
+6) git checkout [branchname]  // to switch between the branches
+
+7) git branch // list of all the branches
+
+
+
+some things to do before pushing
+8) git pull // get latest changes from remote and merge to current branch
+
+9) git merge [branchname]   // this will merger branchname branche with the current branch
+
+10) git push 
+
+
+
+
+start a new project
+step1: git pull // take the latest changes
+step2: git checkout -b featurename  // create a branch and work on that
+step3: do changes and commit the stuffs
+step4: switch to main branch and do git pull
+step5: move back to feature branch 
+step6: git merge mainbranch 
+step7: git push
+why we did that is because after doing changes we went back to see has anyone pushed something to main before me
+if yes pull it 
+
+and now move to our branch
+and merge the changes
+with this what happens is we can resolve the merge confict here in vscode
+
