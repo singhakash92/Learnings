@@ -1,0 +1,8 @@
+1) anything start with cap's is an component and they return only one chile
+2) anything start with 'use" is an hook
+
+3)Use functional updates when the new state depends on the old state: If the new state depends on the current state (like in counters), it’s a good practice to use a function form of the state updater to avoid issues with asynchronous updates. Example:
+const [count, setCount] = useState(0);
+
+setCount((prevCount) => prevCount + 1);
+

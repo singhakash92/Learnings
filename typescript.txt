@@ -1,0 +1,255 @@
+js: is a lossley typed language
+let x = 10;
+x = "akash"
+this is bad:
+
+ts: js + strong type
+let x: number = 10;
+x = "akash"(not allowed)  /// type string is not assignable to type number
+ts is not what run's in our browser 
+our browser only understands js/html/css
+so 
+with the help of "typescript compiler" ts code is compiled down to js code
+
+
+ts:
+checks the type at compile time
+gives compile time error
+convert to js
+
+
+
+js:
+what actually runs
+gives run time error
+
+
+assigning types 
+let x : number = 10;
+let y : string = "akash"
+let flag: boolean = true; 
+
+
+function sum(a: number , b : number): number{
+    return a + b
+}
+
+sum()
+
+function sum(a: number , b : number, type: string): number{
+    return a + b
+}
+
+
+"""""""vimp(literal typing)"""""""""""
+function sum(a: 10, b:number|string, type : "add"| 'sub'|'mul'|'div'):number{
+    return a+b
+
+}
+
+sum(20, 10) "error" {"argument of type number can not be assigned to parameter of type 10"}
+
+
+1) assigning multipe types
+let x: number| string | boolean |undefined 
+
+2) basic types
+number
+string
+boolean
+null
+undefined
+any
+
+3) array 
+number[]  /// an array of numbers
+string[]  // an array of string
+(number | string)[]   // an array of number and strings
+
+4) tuple
+[number, boolean]
+
+
+5) function
+(if any argument they shoutld be along with their types)=>returntype
+(a: number, b: string) => number[]
+
+
+6) interfaces - they are basically used to define the structure of our object(since the types won't always simple as above)
+
+interfaces todoItem {
+    title : string 
+    desc : string
+    id : number
+    completed : boolean 
+}
+
+properites of interfaces : a) they can use another interface or type
+                           b) they can extend another interface or type
+                           c) they can be used to implement OOP
+                           d)  they "cannot" use union and aggregation properites
+
+a) use another interface or type
+interface fullName {
+    name : string
+    surname : string 
+}
+
+interface additionalDetail {
+    age : number 
+    fullName : fullName
+}
+
+so the receiveing object should look like something below
+    {age : 20
+     fullName : {
+        name : "akash",
+        surname : "singh"
+    }
+    }
+
+b) extends another interface or type
+interface fullName {
+    name : string
+    surname : string 
+}
+
+interface additionalDetail extends fullName {
+    age : number 
+}
+
+so the receiveing object should look like something below
+{
+    age : 20,
+    name : "akash", 
+    surname : "singh"
+}
+
+
+
+7) types 
+
+types todoItem = {
+    title : string 
+    desc : string 
+    id : number 
+    completed : boolean
+}
+
+
+properites of types : a) they can use another interface or type 
+                      b) they "cannot" extend another interface or type
+                      c )they can use union(|) and intersection(&) properites
+
+  
+a) use another interface/type
+interface fullName {
+    name : string
+    surname : string 
+}
+
+type additionalDetail = {
+    age : number 
+    fullName : fullName
+}
+
+so the receiveing object should look like something below
+    {age : 20
+     fullName : {
+        name : "akash",
+        surname : "singh"
+    }
+    }
+
+c) they can use union(&) and or(|) properites
+we can use & and | on "interfaces or interface and type or types"  but the final result should get stored in a type
+
+
+// 1. Using & (intersection) with interfaces
+interface Name {
+    name: string;
+}
+
+interface Age {
+    age: number;
+}
+
+// You can use & with interfaces, but the result must be a type
+type Person = Name & Age;
+
+const person: Person = {
+    name: "John",
+    age: 30
+};
+
+
+8) genrics
+they help us to expand the capabities of functions by making them responsive to more data types and still follow the strict type checking
+
+write a function that takes a number and return the same number
+now make the same function work with string as well 
+solution 1 ) write two function with their respective input type
+solution 2 ) use generics
+
+
+
+example 1)
+function returnSame<T>(x : T): T{
+    return x
+}
+
+returnSame<number>(10)
+returnSame<number>("akash")
+
+
+example 2)
+function generics
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+// Usage
+const numberResult = identity<number>(42);    // Type is number
+const stringResult = identity("hello");       // Type inference works too!
+
+// 2. Generic Interface
+interface genrics
+interface Box<T> {
+    content: T;
+    getName(): string;
+}
+
+
+
+
+9) ts api'same
+a) partials - helps to create a new type with the exsting type but in the new type all the key's will be optional
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    age: number;
+    address: {
+        street: string;
+        city: string;
+        country: string;
+    };
+    role: 'admin' | 'user';
+}
+
+// 1. Partial<T> - Makes all properties optional
+type PartialUser = Partial<User>;
+
+b) omit
+c) Pick - allows you to create a new type by selecting a set of properties (Keys) from an existing type (Type)
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  createdAt: Date;
+}
+
+// For a profile display, only pick `name` and `email`
+type UserProfile = Pick<User, 'name' | 'email'>;
+
+

@@ -1,0 +1,81 @@
+falsy values (0, "", false, null, undefined, NaN)
+
+optional chaning : if does not exist returns undefined
+object?.keyname
+object?.[index]
+object.methodname?.()
+
+
+nullish coalesing: if the left side is null or undefined we get the defaultValue as answer
+let result = value ?? defaultValue;
+
+
+
+try, catch , finally
+
+1) optional chaining : if something is not present inside an object gives undefined instead of throwing out an error
+
+
+a) access key value present inside an object
+let obj ={
+    name : "akash", 
+    age  : 10
+}
+
+console.log(obj.name)//"akash"
+console.log(obj.address) //typeError: cannot read property of undefined 
+
+console.log(obj?.address) // undefined
+
+
+b) accessing arrays value present inside an object
+onst response = {
+    data: {
+        user: {
+            posts: [
+                { title: "Post 1" }
+            ]
+        }
+    }
+};
+
+const firstPostTitle = response?.data?.user?.posts?.[0]?.title;
+
+c) calling a function present inside an object
+
+
+
+// 3. Function Calls
+const user = {
+    getAddress() {
+        return "123 Main St";
+    }
+};
+
+console.log(user.getAddress?.()); // "123 Main St"
+console.log(user.getNonExistentMethod?.()); // undefined (no error)
+
+
+2) try, catch, finally
+
+try {
+    // try running this code we might encounter an error over here
+} catch(error){
+    // we have encountered an error over here do this
+}finally{
+    // no matter what always run this
+}
+
+
+
+3) Nullish Coalescing (??) -  is a logical operator that returns its right-hand operand when its left-hand operand is null or undefined or falsy
+
+
+onst user = {
+    name: "",
+    address: null
+};
+
+// Combining both operators
+const userName = user?.name ?? "Anonymous";        // ""
+const userAddress = user?.address?.street ?? "No address"; // "No address"

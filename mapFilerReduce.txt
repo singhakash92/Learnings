@@ -1,0 +1,52 @@
+1) `map()` method is used to transform each element in an array by applying a function to it. 
+It creates a "new array" with the transformed elements, leaving the original array unchanged.
+
+- `currentValue`: The current element being processed.
+  - `index` (optional): The index of the current element.
+  - `arr` (optional): The original array.
+- `thisValue` (optional): A value to use as `this` when executing the callback function.
+
+array.map(function(currentValue, index, arr), thisValue)
+let array = [1,2,3,4,5]
+
+let doubledArray = array.map((val) => {return val*2})
+
+
+2) The `filter()` method creates a "new array" with all elements that pass the test implemented by the provided function.
+
+
+3) The `reduce()` method applies a function of two arguments (accumulator and current value) to reduce the array to a single value.
+
+array.reduce(function(accumulator, currentValue, currentIndex, arr), initialValue)
+ - `accumulator`: The value returned from the previous iteration.
+  - `currentValue`: The current element being processed.
+  - `currentIndex` (optional): The index of the current element.
+  - `arr` (optional): The original array.
+- `initialValue` (optional): A value to use as the initial value for the accumulator in the first iteration.
+
+Example:
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+const sum = numbers.reduce(function(acc, num) {
+  return acc + num;
+}, 0);
+
+
+
+"""""""""our very own map function """"""""""""'
+
+let radius = [1, 2, 3]
+
+Array.prototype helps us to write function which can be used by any array present in this file
+
+Array.prototype.mapping = function (logic) {
+    let outputArray = []
+    for (let i = 0; i < this.length; i++){
+        outputArray.push(logic(this[i]))
+    }
+    return outputArray
+}
+
+
+console.log(radius.mapping( radi => Math.PI * radi * radi))

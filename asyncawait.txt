@@ -1,0 +1,48 @@
+
+we use async await to resolve our promises
+
+fetch('https://api.example.com/users')
+    .then(response => {
+        console.log(response); // Response object, not actual data
+    });
+
+// With .json()
+fetch('https://api.example.com/users')
+    .then(response => response.json()) // Converts stream to JSON
+    .then(data => {
+        console.log(data); // Actual data we can use
+    });
+
+
+2) why after getting the data we convert it to json
+// Example API Response before .json()
+response : {
+    body: ReadableStream,
+    bodyUsed: false,
+    headers: Headers {},
+    ok: true,
+    redirected: false,
+    status: 200,
+    statusText: "OK",
+    type: "cors",
+    url: "https://api.example.com/users"
+}
+
+// After .json() - Now it's a JavaScript object we can work with
+{
+    users: [
+        { id: 1, name: "John" },
+        { id: 2, name: "Jane" }
+    ],
+        totalUsers: 2
+
+}
+
+
+3) how to use async await
+
+async function getData() {
+    const response = async fetch()
+    const data = await response.json() // use the await keyword to conver to json
+    // now use tha data
+}

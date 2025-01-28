@@ -1,0 +1,15 @@
+choice between curly braces {} and parentheses () in JavaScript functions depend on whether you want an explicit or implicit return
+
+1){} use this we need to explicitly define the return keyword
+
+()=>{
+    return 
+}
+
+2) () we need not to define the return keyword
+()=>(
+
+)
+
+3) if the arrow function expression is single line no need to write return or use () or {}
+(x)=> x*2

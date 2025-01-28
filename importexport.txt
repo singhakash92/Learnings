@@ -1,0 +1,38 @@
+3) import export in ES6(modern)
+        
+    1) named :use {} while importing named 
+    2) default : directily import the default one 
+
+    1) name:
+
+    module.js
+    export const name = "John";
+    export function greet() {
+    console.log("Hello, " + name);
+    }
+
+
+    app.js
+    import { name, greet } from './module';
+
+    console.log(name);  // "John"
+    greet();  // "Hello, John"
+
+
+
+    2) default
+    module.js
+    // module.js
+    const greet = () => {
+    console.log("Hello, world!");
+    };
+
+    export default greet;
+
+
+    app.js
+    import defaultExport from './module';
+
+    thats why we write
+    import React from 'react'
+    import {useState, useEffect} from 'react'
