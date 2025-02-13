@@ -1,0 +1,7 @@
+rest api ( representaional state transfer)
+
+they uses set of endpoints to talk to server
+also they uses several http methods like get post put delete
+
+they are stateless
+any api call is not dependent on the previous one

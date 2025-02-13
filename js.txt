@@ -1,0 +1,120 @@
+- JS is 'synchronous'(it can move to the next once it is done executing the current line), 'single-threaded'(can execute only one command at a time) language
+
+- In js everything happens inside a "Execution context"
+
+- whenever a function is invoked a execution context is created
+- Execution context - consist of two part a) memory component b) code component
+execution context is created in two phase
+a) memory allocation phase: In this engine skims through whole code and allocate memory to all the variable and function as a key value pair
+
+key : value
+variableName :           (for let and const)
+variableName : undefined (var keyword)
+functionname : whole body 
+
+
+b) code execution phase
+in this phase whole code is executed line by line
+
+
+- management of all these execution context is done by Call stack 
+- they take care of order of execution of ec
+
+
+
+
+
+
+
+- Hoisting - using a variable's value before intializing it or calling a function before declaring it
+
+- let, const and var all are hoisted 
+- var variables are intialized with undefined
+- let and const variable remain in TDZ zone
+
+
+
+
+
+
+
+- function scoped[var] and block scoped[let, const]{}
+- function scope 
+    if a variable is declared using var it is function scoped
+    this means it can be accessed from anywhere inside a function
+    but cannot be accessed out side a function
+
+    function testFunctionScope() {
+    var a = 10; // Function-scoped variable
+    if (true) {
+        var a = 20; // This `a` is the same variable as the previous one
+        console.log(a); // 20, inside the block, `a` is reassigned
+    }
+    console.log(a); // 20, `a` was reassigned, even outside the block
+    }
+
+    testFunctionScope();
+    console.log(a)  ///error function scoped was accessed outside a function
+
+
+- block scoped
+     availabel to use only inside a scope {}
+     can not be accessed outside a scope
+
+     for (let i = 0; i < 3; i++) {
+    console.log(i); // 0, 1, 2
+    }
+
+    console.log(i); // ReferenceError: i is not defined, `i` is block-scoped
+
+
+
+
+
+
+
+- window
+the moment we run our code a GEC is created
+which consist of memory component and code component
+inside memory  component all the variable and function which are present in global scope(variable and function which are not present inside any function) get the memory allocated
+also a global object is created(window)
+all the var and function present in global space gets attached to this object
+
+- at global scope window === this 
+window.b
+this.b
+b
+
+
+
+
+
+undefined - memory is allocated for this variable but it has placeholder undefined untill the original value is placed
+
+not defined- this variable was not allocated any memory 
+
+
+
+
+errors:
+ReferenceError: i) if a variable is not defined
+ii) we are trying to access let and const before they are intialized i.e they are in TDZ
+
+
+syntaxError: i) redaring let, const variable in same block
+ii) not intializing the const variable while declaring
+
+
+TypeError: i) re intializing const variablle
+
+
+
+
+
+
+closure: 
+
+
+
+
+
