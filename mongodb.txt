@@ -1,0 +1,70 @@
+1) process.env
+this global object is automatically created when we run our application so we don't need to import it inorder to use it
+
+config function in dotenv loads up the data from .env files into process.env so that it can be read
+
+
+import mongoose from "mongoose";
+
+const subscriptionSchema = new mongoose.Schema(
+{
+    type : String | Number |Date,  
+    requried : [true , "xyz is required"],
+    trim : true ,    //removes the extra spaces,
+    minLength : 2, 
+    maxLength : 50, 
+    min : [0, "xyz value must be greater than 0"],    //for number
+    max  : [400, "xyz value must be smaller that 400"],   //for number
+    lowercase : true,
+    match : [/\s+@\s+\.\s+/, "please enter a valid email id"],
+    enum: ["USD", "EURO", "INR"],   //type will be string only but only the the value must be something which is present in the array
+    default : "USD"
+    startDate: {
+      type: Date,
+      required: true,
+      validate: {
+        validator: (value) => {
+          return value <= new Date();
+        },
+        message: "start date must be in past",
+      },
+    },
+    renewalDate: {
+      type: Date,
+      required: true,
+      validate: {
+          validator: function (value) {
+              return value > this.startDate;
+          },
+        message: "start date must be in future",
+      },
+        },
+}
+####this keyword is used to access the entries of this data that will be putted inside the DB####
+####we want to execute a function before saving the entry for this data
+
+subscriptionSchema.pre("save", function (next) {
+
+    if (!this.renewalDate) {
+        const renewalPeriod = {
+            daily: 1, 
+            weekly: 7, 
+            monthly: 30, 
+            yearly : 365
+        }
+        
+        this.renewalDate = new Date(this.startDate)
+        this.renewalDate.setDate(this.renewalDate.getDate() + renewalPeriod[this.frequency])
+    }
+
+    if (this.renewalDate < new Date) {
+        this.status = "expired "
+    }
+    next()  
+})
+
+)
+
+const Subscription = mongoose.model("Subscription", subscriptionSchema);
+
+export default Subscription;
