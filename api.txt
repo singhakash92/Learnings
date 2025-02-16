@@ -5,3 +5,17 @@ also they uses several http methods like get post put delete
 
 they are stateless
 any api call is not dependent on the previous one
+
+
+databases : 
+relational : data is stored inform of table  Perfect for highly structured data
+non - relational : 
+
+
+
+upstash : helps us to build an workflow
+like sending reminders (duolingo) to leaern some stuff that is reminder workflow
+like subscription renewal netlfix : that is subscription workflow
+
+
+arcjet: helps in implement rate limiting, bot protection, signup form protection
