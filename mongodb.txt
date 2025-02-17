@@ -68,3 +68,27 @@ subscriptionSchema.pre("save", function (next) {
 const Subscription = mongoose.model("Subscription", subscriptionSchema);
 
 export default Subscription;
+
+
+
+// while searching using a _id if we have given a wrong id 
+        if (err.name === 'CastError') {
+            const message = "resource not found"
+            error = new Error(message);
+            error.statusCode(404)
+        }
+
+        //list of all validation error means the field we have in our table for each field if any field throws an error
+        if (err.name === "ValidationError") {
+            const message = Object.values(err.error).map((val) => val.message)
+            error = new Error(message.join(", "))
+            error.statusCode(400)
+               
+        };
+
+        // field which should a unique value we are providing a value which is already present
+        if (error.code === 11000) {
+            const message = "duplicate field value entered";
+            error = new Error(message);
+            error.statusCode(404)
+        }
