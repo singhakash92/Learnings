@@ -19,3 +19,27 @@ like subscription renewal netlfix : that is subscription workflow
 
 
 arcjet: helps in implement rate limiting, bot protection, signup form protection
+
+
+middleware postion
+
+const app = express();
+
+// 1️⃣ Global Middleware (Runs for all requests)
+app.use(express.json()); // Parses JSON bodies  makes req.body available for the below routes
+app.use(express.urlencoded({ extended: true })); // Parses form data
+app.use(cors()); // Enables CORS (if needed)
+
+// 2️⃣ Custom Middleware (Authentication, Logging, etc.)   /// for authenication
+app.use(myAuthMiddleware); // Custom authentication
+app.use(myLoggerMiddleware); // Logging middleware
+
+// 3️⃣ Route Handlers (APIs)
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/sub", subRouter);
+
+// 4️⃣ Error Handling Middleware (ALWAYS at the Bottom)   /// when error occured in above middleware this global error handler is called
+app.use(errorMiddleware);
+
+module.exports = app;
