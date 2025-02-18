@@ -19,7 +19,8 @@ const subscriptionSchema = new mongoose.Schema(
     match : [/\s+@\s+\.\s+/, "please enter a valid email id"],
     enum: ["USD", "EURO", "INR"],   //type will be string only but only the the value must be something which is present in the array
     default : "USD"
-    startDate: {
+}
+startDate: {
       type: Date,
       required: true,
       validate: {
@@ -92,3 +93,54 @@ export default Subscription;
             error = new Error(message);
             error.statusCode(404)
         }
+
+
+
+4 priciples to make sure reliable database transaction 
+1) atomicity - the txn happening shoule be "all or nothing",  so we start a session, ex : money transfer
+2) consistency - the txn happening should take dB from one valid state to another , 
+- All rules, constraints, and triggers must be enforced
+- example : rules:
+            total amount can never me negative(let say 1000)
+            each txn value should be more than 0
+
+            condn:
+            make txn of 100 (works fine)
+            make txn of 1200(it will make total amount in -ive so don't execute this )
+
+3) Isolation - each txn happening should be isolated
+-   Multiple transactions occurring at the same time should not affect each other
+
+Initial state: Alice ($1000), Bob ($500)
+Two simultaneous transactions:
+Transaction 1: Alice sends $800 to Bob
+Transaction 2: Alice sends $500 to Bob
+
+
+Without isolation (BAD):
+Time | Transaction 1 | Transaction 2
+
+Both transactions read Alice's balance ($1000)
+T1 thinks: "1000 - 800 = 200" (sufficient funds)
+T2 thinks: "1000 - 500 = 500" (sufficient funds)
+Both transactions proceed
+Result: Alice has -$300 (violated consistency!)
+
+
+With proper isolation (GOOD):
+"Transaction 1 *locks* the accounts firs"t:
+
+Reads $1000
+Subtracts $800
+New balance $200
+
+
+Transaction 2 waits, then:
+Reads $200
+Cannot subtract $500 (insufficient funds)
+Transaction rejected
+
+
+Final state: Alice ($200), Bob ($1300)
+
+4) durable - once the txn is commited , it will remain commited even if there is a system failure
