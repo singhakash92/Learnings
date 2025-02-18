@@ -43,3 +43,13 @@ app.use("/api/v1/sub", subRouter);
 app.use(errorMiddleware);
 
 module.exports = app;
+
+
+####### how to return any data
+{"success": true, 
+"message": "User Created Successfully", 
+data: {
+        token: token, 
+         userId : newUser._id
+    }
+}
