@@ -72,6 +72,11 @@ export default Subscription;
 
 
 
+
+const users = await User.find().select('-password');   //gives all the field except for the password
+
+
+
 // while searching using a _id if we have given a wrong id 
         if (err.name === 'CastError') {
             const message = "resource not found"
