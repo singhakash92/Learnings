@@ -1,0 +1,69 @@
+1) there are 8 primitive datatypes in java
+int 4byte
+float 4byte
+long 8byte
+double 8byte
+boolean 1 bit
+char 2byte
+byte 1byte range is from -128 to 127
+short 2byte
+
+2)if else syntax
+3) for loop syntax, advanve for loop syntax where we don't depend on the index
+4) switch case syntax
+
+5) primitives are stored in the stack memory 
+stack - uses to store primitive value, call stack, reference variable 
+heap - stores the object 
+
+6) == and .equals
+== in case of objects, checks whether they are pointing to same object or not
+.equals is to check they have same valure or not
+
+7) In java everything is *pass by value*
+    ex. primitive pure pass by value
+    object - pass by value of reference, now both are pointing to same object, change in one affects the other
+    but now if the second one is assigned a new onject the old one is still pointting to the previous one
+    special case of sting: because of String pool
+
+8) scope: In to out
+
+9)array'
+int[] arr = new int[5];
+arr is the reference variable
+new creates a object inside the heap to which arr is pointing at
+arr.length
+
+java provide Arrays class which has functions which can act on our array
+
+10) ArrayList
+ArrayList<Integer> arr = new ArrayList<Integer>(5);
+here the datatype is always a wrapper  class: these classes wraps the primitive inside an object and store it in a heap memory;
+Integer, Float, Double, Long, Boolean, Character, Byte, short
+arr.get()
+arr.add()
+arr.size()
+ArrayList<ArrayList<Integer>> arr = new ArrayList<Integer>(5)
+
+11) Sting pool: its's a special place inside the heap memeory which helps in space optimizstion
+String a = "akash"
+b = a
+now b and a are pointing to same object inside the sting pool
+now if 
+String b = "singh"
+this means a new object singh was created inside the pool and now b is pointing to it
+meanwhile a is still pointin to akash
+
+String a = new String("akash"); this creates a object outside the string pool
+
+StringBuilder - helps in space optimizstion and time optimizstion
+when we are appending something to a string evertime a new object is created and old object get's dereferenced 
+this makes the application slower
+StringBuilder a = new StringBuilder("akash")
+a.append("singh)
+and then we do 
+a.toString() best of both worlds now the new string is inside the stringpool
+StingBuffer best to use when we are building a string across the thread
+
+
+
