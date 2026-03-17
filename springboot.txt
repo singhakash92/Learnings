@@ -1,0 +1,37 @@
+A POJO class is a simple Java class that only contains fields + getters/setters, and maybe toString(), equals(), hashCode().
+
+Entity models represent the database.
+
+DTO - data transfer object
+Request DTO (When client sends data)
+Example: Create User API — client sends name and password.
+
+② Response DTO (When server sends data)
+Example: Return user details — never include password.
+
+
+@RestController = @Controller(this is a controller class Spring should scan it and map HTTP requests to the methods inside.)+ @ResponseBody(whatever we are returning is a java object write it inside the response body and then return it instead of thinking it a view and then rendering it)
+
+@RequestMapping("/api/users") = placed at the class level, defines a base path for all endpoints in that controller  ex. /api/users/url
+
+@CrossOrigin(origins = "http://localhost:3000") - allow request from here only
+
+@GetMappingL("/url")
+public returnType functionNameL(){
+
+return something;0
+}
+
+
+@PostMappingL("/url") -4 ways in which data can be sent from client to server
+
+@PostMapping("/postDataFromHeader/{id}?user_name=akash")
+    public String postDateFromHeader(@RequestHeader("name") String newname, @PathVariable Long id, @RequestBody User user, @RequestParam(value = "user_name", required = false, defaultValue = "a1k8a1s2h") String name){
+        return name;
+
+}
+
+@RequestHeader("name") String name [inside header ther is a key name as name take it's value and put it in name 
+varaiable][("name") this is coming name map it to newname]
+
+List of values- @RequestParam List<Long> id = ids?ids=1&ids=2&ids=3All parameters - @RequestParam Map<String, String> params =?key1=val1&key2=val2

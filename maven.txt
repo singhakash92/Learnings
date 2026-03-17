@@ -1,0 +1,5 @@
+maven has 2 task
+    -dependency management
+    -project build lifecyle management
+
+1) like old days we don't go to the centrl

@@ -24,7 +24,7 @@ branch info
 some things to do before pushing
 8) git pull // get latest changes from remote and merge to current branch
 
-9) git merge [branchname]   // this will merger branchname branche with the current branch
+9) git merge [branchname]   // this will merger branchname with the current branch
 
 10) git push 
 
