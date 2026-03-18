@@ -65,5 +65,60 @@ and then we do
 a.toString() best of both worlds now the new string is inside the stringpool
 StingBuffer best to use when we are building a string across the thread
 
+12) Exceptions
+object => thowable => Exceptions
+if we want to create  a new custom exception we must extend teh exceptions class
+checked - compiletime - FileNotFoundException
+unchecked t- run - arr index out of bound, nullPointer, arithmetic
 
+try
+catch
+finally
+throw - use to throw an exception
+throws - warns other that a exception wil be thrown so catch it and manage it
+
+Autoboxing is automatic conversion of primitives to wrapper objects, and unboxing is the reverse — both done by the compiler to bridge primitives and the object-oriented world of Java.
+int num = 5;
+Integer boxed = num;  // Autoboxing: int → Integer (compiler does Integer.valueOf(num))
+
+Integer boxed = Integer.valueOf(10);
+int num = boxed;  // Unboxing: Integer → int (compiler does boxed.intValue())
+
+
+13) A class is a template for an object, and an object is an instance of a class.
+
+14) The dot operator links the name of the object with the name of an instance variable or method.
+
+15) The 'new' keyword dynamically allocates(that is, allocates at run time)memory for an object & returns a reference to it.
+This reference is, more or less, the address in memory of the object allocated by new.
+This reference is then stored in the reference variable.
+Box mybox; // declare reference to object
+     mybox = new Box(); // allocate a Box object
+
+16) The this Keyword:
+Sometimes a method will need to refer to the object that invoked it. To allow this, Java defines the this keyword.
+this can be used inside any method to refer to the current object. That is, this is always a reference to the object on
+which the method was invoked.
+
+this -> is replaced by name of object if used along with variable or fun ex . this.zy or this.funname()
+this -> name of class if used alone
+
+17)Consturctor
+as soon as the object of this particular class is created Consturctor is invoked, inorder to set some properties
+
+18)Consturctor overloading
+2 Consturctor with same name but differenct no of arguments they are expecting
+
+
+19)final:
+Doing so prevents its contents from being modified, making it, essentially, a constant.
+This means that you must initialize a final field when it is declared.
+primitive = no modification
+string = keep pointing to same
+object = keep pointing to same but internal vaiable value can be changed
+
+final method : a subclass can not override this method
+final class : cannot be extended , if class is final, methods autmatically become final
+
+20)
 
