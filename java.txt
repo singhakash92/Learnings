@@ -120,5 +120,138 @@ object = keep pointing to same but internal vaiable value can be changed
 final method : a subclass can not override this method
 final class : cannot be extended , if class is final, methods autmatically become final
 
-20)
+finalize() : is a method inherited from Object, called by the Garbage Collector  just before an object is destroyed in case if we want to do something before this object is completerly deleted. Used for cleanup of resources.
 
+you can define specific actions that will occur when an object is just about to be reclaimed by the garbage collector.
+To add a finalizer to a class, you simply define the finalize( ) method. The Java run time calls that method whenever
+it is about to recycle an object of that class. Right before an asset is freed, the Java run time calls the finalize( )
+method on the object.
+
+protected void finalize( ) {
+    // finalization code here
+}
+
+finally — Block that Always Executes
+finally is a block attached to try-catch that always runs, whether or not an exception was thrown.
+
+20)package)(organise class); these are just folders, helps to create a class name xyz, so that it doeesn't cloide with class xyz inother package
+21)import: com.kunal.Message.writeAMessage
+        -package----.classname.functionname to be imported and use
+22) module : organise package
+
+23)  long start = System.currentTimeMillis(); current time in must
+long end = ystem.currentTimeMillis();
+end - start  = time to Execute
+
+24)Animal a = new Dog();
+
+System.out.println(a instanceof Dog);    // true
+System.out.println(a instanceof Animal); // true
+System.out.println(a instanceof Cat);    // false
+
+// Java 16+ pattern matching:
+if (a instanceof Dog d) {
+    d.bark();   // no cast needed ✅
+}
+
+25)
+static : this variable/method is property associated with the class not with any specific object
+Classname.variable name/functionname
+
+
+helps to access variable/function without creating object of a class
+
+a) from static method we cannot access not static things, 
+bcz, static is object independent, and non-static is invoked by a object
+
+workaround, we can create a object inside the static function and then invoke the non-static or receive a object as a rgument and then invoke the non- static method or variable
+
+b) static block:
+written inside the class
+this 
+block is used to initialize the value of static variable
+*the class are executed only once in their lifetime when the class is loading, and never get's invoked again
+
+
+26)
+Singleton class: thsi class only has one object throughout it's lifetime 
+class DataBaseConnection{
+
+
+// no external way to access this, we limit the access of Consturctor first and make a function to make a instance
+    private DataBaseConnection(){
+        System.out.println("Database connection established");
+    }
+
+    //remains same for all the object
+    private static DataBaseConnection getConnectionReference;
+
+    public static DataBaseConnection getConnection(){
+        if(getConnectionReference == null){
+            getConnectionReference =new DataBaseConnection();
+            return getConnectionReference;
+        }else{
+            return getConnectionReference;
+        }
+
+
+    }
+
+}
+
+
+27) Inner class
+public class Car {
+    String color = "Red";        // Car's own variable
+    int speed = 100;
+
+    public class Engine {        // Non-static inner class
+        int horsepower = 450;
+
+        public void showDetails() {
+            // Engine can see Car's variables directly!
+            System.out.println("Car color: " + color);      // ✅ Works!
+            System.out.println("Car speed: " + speed);      // ✅ Works!
+            System.out.println("Horsepower: " + horsepower);
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        
+        // STEP 1 — Create the outer object FIRST
+        Car myCar = new Car();
+        
+        // STEP 2 — Use the outer object to create the inner object
+        Because `Engine` is **non-static** — it is tied to a specific `Car` instance.
+        Car.Engine myEngine = myCar.new Engine();
+        
+        // Now use it
+        myEngine.showDetails();
+    }
+}
+
+very imp side by side*****************
+public class Car {
+    String color = "Red";          // non-static
+    static String brand = "Toyota"; // static
+
+    // Non-static inner class — tied to a Car instance, dependent, can access dependent and independent of outer class, tied to it can access everything
+    public class Engine {
+        public void show() {
+            System.out.println(color); // ✅ can access non-static
+            System.out.println(brand); // ✅ can access static
+        }
+    }
+
+    // Static nested class — independent, not tied to it can acess only independentthis of outer class
+    public static class ManualBook {
+        public void show() {
+            // System.out.println(color); // ❌ ERROR — no outer instance!
+            System.out.println(brand);    // ✅ can access static only
+        }
+    }
+}
+
+Car.ManualBook mb = new Car.ManualBook()
