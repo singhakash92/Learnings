@@ -255,3 +255,51 @@ public class Car {
 }
 
 Car.ManualBook mb = new Car.ManualBook()
+
+
+1) Inheritencte
+
+Inherit from parent             extends                 Child gets all parent members
+Call parent constructor         super()                 Must be first line in child constructor
+Call parent method              super.methodName()      Calls the parent version of a method, from child, if methodoverriden
+Call inherited method           directlymethodName()    Works if child hasn't overridden it
+replace parent method           @Override               Child provides its own version
+
+super - call constructor and call superclass methods and variable
+single 
+multileverl
+heireahial
+
+
+patentrefernce variablename = new childObject()
+name = "aniamal"                  name = "dog"
+eat()                               @overridde eat
+breathe()                           bark()
+acess - from left side
+implemented = from right side
+variablename.name = "aniamal"
+variablename.eat() = dog ka eat because access but overridden
+variablename.breathe = aniamal ka
+variablename.bark = no access no run
+
+
+final - method, can not be overridden by child
+final - class, can not be extended by child
+static - method, cannot be overridden by child
+
+
+2) polymorphism,
+a)compile time/static polymorphism; method overloading,
+2 methods with same name but different signature(reutrn tupe, no of args, type of args), the one we call is implemented
+b)run time/dynamic: method overridding
+child inherits parent class 
+both have exactyle same method(same naem and signature) but the child will overridd the parent
+
+3)encapsulation: Wrapping data (variables) and methods together inside the class, and HIDING the data from outside. and allowing controlled access of it
+achieve : private variables + public getters/setters
+
+
+4)abstracion: we know what it does, but don't know how it does
+achieve abstraction?abstract class or interface
+
+Encapsulation hides data, Abstraction hides implementation
