@@ -1,3 +1,31 @@
+1) Spring framework/springBoot/SpringMVC
+    father(general purpose framework, all thing can be done)/genz(fast)/mother(specialised in making food)
+
+spring: GPF specialised for large-scale enterprise javaspp, highly flexible can do anyting, configuration: need heavy configuration to hit the ground up running
+springBoot: specialised in rapid development and production development, opinionated things to be done in some fashion: minimal configuration
+MVC: specialised in web application, highly flexible for web, minimal configus
+
+
+ex: making food,
+spring: bring me all the raw material then I'll make it
+Boot: just tell me the raw material i'll bring by myself
+MVC: I specialize only in making aloo paratha
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 A POJO class is a simple Java class that only contains fields + getters/setters, and maybe toString(), equals(), hashCode().
 
 Entity models represent the database.

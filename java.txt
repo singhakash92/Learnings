@@ -303,3 +303,7 @@ achieve : private variables + public getters/setters
 achieve abstraction?abstract class or interface
 
 Encapsulation hides data, Abstraction hides implementation
+
+
+
+

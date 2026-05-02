@@ -1,0 +1,107 @@
+Binary Search;
+
+while(start < = end)
+        1) find mid
+        2) if target > mid;
+            start = mid + 1 search in the right half
+        3) if target < mid;
+        end = mid -1  search in the left half;
+
+
+
+
+order agnostic binary search;
+we don't know the sorting order;
+
+boolean isAsc = nums[0] < nums[last];
+
+if asc 
+    target > mid;
+        start = mid +1
+    target < mid 
+        end = mid - 1
+else
+    target > mid;
+        end = mid -1 
+    target < mid;
+        start = mid + 1
+
+
+
+
+Mountain array;
+always increase then decrease, mostly no repeated element
+
+while(start != end){
+    if mid < mid +1
+        start = mid + 1, something big in on right side
+    if mid > mid + 1
+       end = mid , something big can be on left side including this;
+}
+
+search in Mountain array: find peak now apply BS on left and then on right
+
+find peak in rotated sorted array:
+find the pivot and then apply BS on left and then on right
+
+finding pivot;
+3,4,5,6,7,0,1,2
+        m m
+
+case 1) m > m + 1 and (m < e) to avoid out of bound;
+        found the answer
+case 2) m < m -1 and (m > s) to avoid out of bound
+        found the answer
+case 3) 
+3,4,5,6,7,0,1,2
+s           m
+s > m;(if start is greater than mid, means since it is rotated, no use of searching after the mid)
+e = m - 1
+case 4)
+3,4,5,6,7,0,1,2
+s     m
+m > s
+s = m + 1; ///it is not m because if m was pivot it would have been caughten cases 1 and 2 
+
+
+if pivot == target answer
+
+
+if target > start 
+s to p -1
+
+if target < start 
+p+1 to end
+
+
+searh in 2D : stair case search
+First element of each row is smaller than last element of previous row
+
+
+
+1,  4,  7,  18r
+2,  5,  13, 20
+11, 13, 14t, 21
+14, 16, 17, 22
+
+18 greatest in row and smallest in col
+if ref == target found
+if target > ref(pure row ki zarrorat hi nahi) r = r +1
+if target < ref(pure col me mai sabse choota tu mere se bhi chota pura col hatao) c = c -1
+
+row, col = 0, len(matrix[0]) - 1  # top-right corner
+
+    //row ki value length se jyaada naa chali jae and col 0 se bhi kam naa ho jaaye
+    while row < len(matrix) and col >= 0:
+        val = matrix[row][col]
+        if val == target:
+            return True
+        elif val > target:
+            col -= 1   # too big → go left
+        else:
+            row += 1   # too small → go down
+
+    return False
+
+
+    
