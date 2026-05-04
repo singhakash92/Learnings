@@ -166,6 +166,8 @@ bcz, static is object independent, and non-static is invoked by a object
 
 workaround, we can create a object inside the static function and then invoke the non-static or receive a object as a rgument and then invoke the non- static method or variable
 
+if a function is static, it can never be overriden, because it is onject independent
+
 b) static block:
 written inside the class
 this 
@@ -303,7 +305,10 @@ achieve : private variables + public getters/setters
 achieve abstraction?abstract class or interface
 
 Encapsulation hides data, Abstraction hides implementation
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 1b28ee9b174091a50ff5285a8b07e029c25c82c2

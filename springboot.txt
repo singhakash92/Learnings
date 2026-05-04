@@ -82,6 +82,15 @@ f)@Value("${db.url}")
 private String url;
 @Value("${key}") reads values from application.properties and injects them into these fields.
 
+g)@Transactional
+
+
+h)@Async
+
+
+i) @Profile
+dev stage and prod, DB connection url, different for different env
+
 
 
 
