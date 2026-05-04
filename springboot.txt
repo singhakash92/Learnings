@@ -21,6 +21,19 @@ adv: a)focus on business logic instead of creating and managing the object
      d)scalable
 
 3) Beans: the object created by IoC container are called as Beans
+lifecycle:instantiate, intitalize, usage, destruction(all this is managed by Ioc container/spring container)
+
+create bean
+a)using annotation: @Component, @controller bean, @repository, @service
+b)using @Bean in configuration file
+
+
+Bean Scope
+a)singleton : only one instance of this bean(all beans are default this)
+b)prototype : every time a new instance of this bean(whenever need a fresh instance is provided)
+
+profile
+DB connection String, dev, stage, prod
 
 4) Dependency Injection:
 class controller ( internally "depends" on a function inside service)[so, in-order to use the function of service it needs a object of service first, we will injection this Dependency in controller(no need to create the obj, we are taking away the power of creating object in controller here)]
