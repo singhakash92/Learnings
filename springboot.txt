@@ -50,9 +50,23 @@ c)field Injection: simply write @autowire above the object declared where ever w
 // we have project it has multiple class, they all will have objects, objects are stored in heap memory
 // this line is responsible for creating a IoC container in heap memory, which stores object of all the marked class and these objects are now called as Beans
 
+###annotation are just metaData(treat this differently)
 
+a) @SpringBootApplication //becomes entry point
+@Configuration          // 1. this class can define @Bean methods
+@EnableAutoConfiguration // 2. auto-configure Spring based on classpath
+@ComponentScan          // 3. scan current package + sub-packages for beans
 
-6)@configuration(mannually making beans):
+b)
+@RestController = @controller + @ResponseBody
+marks this class as: handles http request
+
+c)@Autowired
+
+d)@Component(create bean), @Service(creates bean but this class has only business login), @repository
+this class does DB interaction, + exception translation(translate all DB exceptions to DataAccessException)
+
+e)@configuration(mannually making beans):
 marks a class as a source of bean definitions. It tells Spring:
 "This class defines beans — read it and register them into the IoC container."
 @Configuration          // This class = Spring config file
@@ -64,23 +78,9 @@ public class AppConfig {
     }
 }
 
-7)@Value("${db.url}")
+f)@Value("${db.url}")
 private String url;
 @Value("${key}") reads values from application.properties and injects them into these fields.
-
-8)
-@RestController
-marks this class as: handles http request
-
-9)
-@service
-this class has only business logic nothing else
-
-10)
-@repository
-this class does DB interaction, + exception translation(translate all DB exceptions to DataAccessException)
-
-
 
 
 
