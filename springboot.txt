@@ -1,7 +1,7 @@
 1) Spring framework/springBoot/SpringMVC
     father(general purpose framework, all thing can be done)/genz(fast)/mother(specialised in making food)
 
-spring: GPF specialised for large-scale enterprise javaspp, highly flexible can do anyting, configuration: need heavy configuration to hit the ground up running
+spring: GPF specialized for large-scale enterprise java pp, highly flexible can do anything, configuration: need heavy configuration to hit the ground up running
 springBoot: specialised in rapid development and production development, opinionated things to be done in some fashion: minimal configuration
 MVC: specialised in web application, highly flexible for web, minimal configus
 
@@ -13,7 +13,59 @@ MVC: I specialize only in making aloo paratha
 
 
 
+2) IoC(Inversion of control)[design principle]:
+control of creating the object and lifecycle is transferred from code to someone else(Ioc container)
+adv: a)focus on business logic instead of creating and managing the object
+     b)loose coupling
+     c)easy testing 
+     d)scalable
 
+3) Beans: the object created by IoC container are called as Beans
+
+4) Dependency Injection:
+class controller ( internally "depends" on a function inside service)[so, in-order to use the function of service it needs a object of service first, we will injection this Dependency in controller(no need to create the obj, we are taking away the power of creating object in controller here)]
+class service
+class repository
+
+a)Constructor Injection: the moment we create the object of controller we also pass the object of service as a argument, we receive it and set the field for service, now we can use the function of service class // use to inject mandatory Dependency
+b)setter Injection: we create obj of controller, now we have a setter function inside controller to set the field of service, we class that function and pass the service object as an argument //optional Dependency //write @Autowired(required = false) above the setter
+c)field Injection: simply write @autowire above the object declared where ever we want to user the function of service //never use in prod
+
+
+
+5)SpringApplication.run()
+// we have project it has multiple class, they all will have objects, objects are stored in heap memory
+// this line is responsible for creating a IoC container in heap memory, which stores object of all the marked class and these objects are now called as Beans
+
+
+
+6)@configuration(mannually making beans):
+marks a class as a source of bean definitions. It tells Spring:
+"This class defines beans — read it and register them into the IoC container."
+@Configuration          // This class = Spring config file
+public class AppConfig {
+
+    @Bean               // This method = bean definition
+    public UserService userService() {
+        return new UserService();
+    }
+}
+
+7)@Value("${db.url}")
+private String url;
+@Value("${key}") reads values from application.properties and injects them into these fields.
+
+8)
+@RestController
+marks this class as: handles http request
+
+9)
+@service
+this class has only business logic nothing else
+
+10)
+@repository
+this class does DB interaction, + exception translation(translate all DB exceptions to DataAccessException)
 
 
 
