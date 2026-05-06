@@ -58,7 +58,9 @@ a) @SpringBootApplication //becomes entry point
 @ComponentScan          // 3. scan current package + sub-packages for beans
 
 b)
-@RestController = @controller + @ResponseBody
+@RestController = @controller + @ResponseBody   //@controller vs @RestController(what's get written in http response) r
+@controller class-> function return "home" return view home inside template(expllicitly mention @ResponseBody to return json/xml)
+@restcontroller -> no need to mention @ResponseBody, it will return only json/xml
 marks this class as: handles http request
 
 c)@Autowired
