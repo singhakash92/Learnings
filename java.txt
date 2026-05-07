@@ -305,10 +305,34 @@ achieve : private variables + public getters/setters
 achieve abstraction?abstract class or interface
 
 Encapsulation hides data, Abstraction hides implementation
-<<<<<<< HEAD
 
 
+java code execution:
+.java file ------------------> .class file -------------------------------------> 010101010(machine code)
+           compiler(javac)     (platform Independent)              Interpretor(JVM)(line by line)
 
+1)JDK: java development kit 
+    a) provides us an envirornment to develop java code
+    b) has compiler javac(convert java code to byte code)
+    c) has JRE
 
-=======
->>>>>>> 1b28ee9b174091a50ff5285a8b07e029c25c82c2
+2)JRE: java runtime envirornment
+    a) this is the place where java code is actually runs
+    b) this consits of Interpretor + all the libraries needed to run our code
+
+3)JVM: java virtual machine
+    a) interpretes the byte code line by line
+    b)if a function is getinnng used again and again it interpretes it again and again
+
+    How JVM works?
+    i)loads .class file and covert it to binary data
+    2)objects of this class are stored inside head memory
+    3)allocate memory for all the primitive variable in stack
+    4)JVM contain 2 type of memeory
+    stack         and     heap
+    primitive             all object incl string in string pool
+    reference
+    functioncall
+
+4)JIT(just in time)
+    a)acts as a look-up table(if a line is getting interpreted again and again, it says take it from me me and do the execution faster)
