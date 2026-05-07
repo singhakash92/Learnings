@@ -6,6 +6,10 @@ double 8byte
 boolean 1 bit
 char 2byte
 byte 1byte range is from -128 to 127
+        // byte b = 129; ❌ compile error: "possible lossy conversion"
+
+        byte b = (byte) 129;
+        explicitly cast it to ack you know there will be loss of data ( formula: value - 256)
 short 2byte
 
 2)if else syntax
