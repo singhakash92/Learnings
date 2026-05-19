@@ -97,14 +97,97 @@ dev stage and prod, DB connection url, different for different env
 
 
 
+6)ObjectMapper class in Jackson library(********Used for JSON mapping with java Object vise versa)#####DTO creation
+used for Serializing -> java object to JSON/xml
+        deserializing -> json to java object
+
+public class Employee {
+
+    @JsonProperty("emp_id")        //user sending emp_id in i/p request, now it's mapped to id for processing, while retring it's again mapped to emp_id  
+    private int id;                  // while working internally we use id
+
+    @JsonIgnore                       // exclude from serialization and deserializing
+    private String password;          // when json is send back to user this filed is not present there
+
+    @JsonAlias({"emp_name", "name"})  // accept multiple JSON key names coming from user during deserializing but returned is name
+    private String name;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate joiningDate;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL) //Exclude null or empty fields while returning the json
+    private String email;
+
+    @JsonIgnoreProperties(ignoreUnknown = true)   //class level, json coming from user, not here so ignore
+    public class Employee {
+    }
+
+    Annotation	Purpose
+    @JsonProperty	Rename JSON field coming from user and while sending back
+    @JsonIgnore	Ignore field coming from user
+    @JsonAlias	Accept alternate names coming from user
+    @JsonFormat	Format dates/numbers while sending to user
+    @JsonInclude	Exclude null/empty while sending to user
+    @JsonIgnoreProperties	Ignore unknown fields coming from user
+    JsonGetter
+    JsonSetter ///very good to learn
+}
+
+
+
+
+7)ObjectUtils is a class in spring which is null safe and provides us utility function
+objectmapper.isempty(objectname) //check emptyness and nullness both
+
+Why Separate DTO and Entity?
+Because:
+API structure may differ from DB structure(ex. variable name, not storing everything in one table)
+Security reasons
+Avoid exposing DB internals
+Validation differences
+Better architecture
+
+(ORM of java is Hibernate/eclipselink/toplink)
+JPA(consitution book)- rule Book , how object should behave while interacting with database, how they should work, otherwise issue while migrating
+Hibernate/eclipselink/toplink(government) - 
+
+
+
+##############about entities
+1)Entity ->	java object that represent a database table row
+2)Entity Lifecycle -> states of entity, moves through 4 states
+    transient - enitity created, but not geting tracked,   User user = new User();
+    persistent - enitity getting tracked, entityManager.find(User.class, 1);Stored in Persistence Context and Dirty checking ON
+    detached - no longer is getting tracked, entityManager.detach(user);
+    removed - marked for deletion , entityManager.remove(user);
+3)EntityManager	: this is what we use to interact with DB
+e.g. 
+entityManager.persist();
+entityManager.find();
+entityManager.remove();
+entityManager.createQuery();
+
+
+core of JPA
+a)persistent context - tracks managed Entity
+    Stores managed entities
+    Prevents duplicate DB calls
+    Tracks changes
+b)dirty checking - auto detect changes and update DB
+c)query generation - convert jPQL to sql
+d)caching - avoid unnecessary db hit by caching
+
+
+
+8)Hibernate/JPA[java persistent api](used for data base mapping with java Object vise versa) #POJO creation
+
+
 
 
 
 
 
 A POJO class is a simple Java class that only contains fields + getters/setters, and maybe toString(), equals(), hashCode().
-
-Entity models represent the database.
 
 DTO - data transfer object
 Request DTO (When client sends data)
@@ -113,8 +196,6 @@ Example: Create User API — client sends name and password.
 ② Response DTO (When server sends data)
 Example: Return user details — never include password.
 
-
-@RestController = @Controller(this is a controller class Spring should scan it and map HTTP requests to the methods inside.)+ @ResponseBody(whatever we are returning is a java object write it inside the response body and then return it instead of thinking it a view and then rendering it)
 
 @RequestMapping("/api/users") = placed at the class level, defines a base path for all endpoints in that controller  ex. /api/users/url
 

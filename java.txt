@@ -336,3 +336,58 @@ java code execution:
 
 4)JIT(just in time)
     a)acts as a look-up table(if a line is getting interpreted again and again, it says take it from me me and do the execution faster)
+
+
+
+🔁 7. Loop through HashMap
+Method 1: entrySet (MOST USED)
+for (HashMap.Entry<Integer, String> entry : map.entrySet()) {
+    System.out.println(entry.getKey() + " → " + entry.getValue());
+}
+Method 2: keySet
+for (Integer key : map.keySet()) {
+    System.out.println(key + " → " + map.get(key));
+}
+Method 3: values only
+for (String value : map.values()) {
+    System.out.println(value);
+}
+
+import java.util.*;
+import java.util.stream.*;
+
+public class IteratorExamples {
+    public static void main(String[] args) {
+
+        // ── 1. FOR-EACH ──────────────────────────────────────
+        List<String> fruits = List.of("Apple", "Banana", "Mango");
+        for (String f : fruits) {
+            System.out.println(f);          // Apple, Banana, Mango
+        }
+
+        // ── 2. ITERATOR ──────────────────────────────────────
+        List<Integer> nums = new ArrayList<>(List.of(1,2,3,4,5,6));
+        Iterator<Integer> it = nums.iterator();
+        while (it.hasNext()) {
+            if (it.next() % 2 == 0) it.remove(); // remove evens
+        }
+        System.out.println(nums);           // [1, 3, 5]
+
+        // ── 3. LIST ITERATOR ─────────────────────────────────
+        List<String> names = new ArrayList<>(List.of("Alice","Bob","Dave"));
+        ListIterator<String> lit = names.listIterator();
+        while (lit.hasNext())
+            lit.set(lit.next().toUpperCase()); // uppercase in place
+        while (lit.hasPrevious())
+            System.out.print(lit.previous() + " "); // DAVE BOB ALICE
+        System.out.println();
+
+        // ── 4. SPLITERATOR (via parallel stream) ─────────────
+        int sum = List.of(1,2,3,4,5,6,7,8)
+                      .parallelStream()
+                      .filter(n -> n % 2 == 0)
+                      .mapToInt(Integer::intValue)
+                      .sum();
+        System.out.println("Sum of evens: " + sum); // 20
+    }
+}
