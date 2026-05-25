@@ -1,0 +1,44 @@
+
+
+Kafka cluster : group of brokers + zookeeper/kraft(broker cordinator)
+Broker:A Kafka server that stores and manages data.
+
+    Producer: A Producer is a client that publishes(writes) messages to Kafka topics.
+    ProducerRecord<String, String> record = new ProducerRecord<>(
+    "orders-topic",   // topic
+    2,                // partition (optional)
+    1234567890L,      // timestamp (optional)
+    "order-101",      // key (optional)
+    "{ ... }",        // value (required)
+    headers           // headers (optional)
+);
+Consumer: A Consumer is a client that subscribes to and reads messages from Kafka topics.
+
+function of producer:
+a)Serialization : convertion java object to byte stream
+
+b)Partitioning: The producer decides which partition a message/event goes to based on partitioning strategy (e.g., round-robin(no key passed), key-based(message with this key will always go to the same partition, key is hashed and then hashed % number of partitions = which partition it belongs to, explicit partition number passed by producer, logical partitioning based on message content using if-else or switch-case logic)
+
+c) Batching: messages can be sent in batches to improve performance;
+props.put("batch.size", 16384);          // batch up to 16KB before sending
+props.put("linger.ms", 10);              // wait 10ms to fill the batch
+props.put("buffer.memory", 33554432);    // 32MB total buffer
+
+d)Acknowledgements (acks) — Reliability Control: The producer can specify the level of acknowledgment it requires from the broker before considering a message as successfully sent. This is controlled by the "acks" configuration:
+// acks=0 → Fire and forget. No confirmation. Fastest, but data loss possible.
+props.put("acks", "0");
+// acks=1 → Leader broker confirms. Default. Balanced.
+props.put("acks", "1");
+// acks=all → Leader + all replicas confirm. Slowest, but NO data loss.
+props.put("acks", "all");
+
+e)Retries and Idempotence: Producer automatically retries on failure — but retries can cause duplicates.Enabling idempotence ensures that even if retries occur, duplicate messages are not produced.
+props.put("retries", 3);                        // retry up to 3 times
+props.put("retry.backoff.ms", 500);             // wait 500ms between retries
+// Enable idempotent producer → exactly-once delivery, no duplicates
+props.put("enable.idempotence", "true");        // Kafka assigns a unique producer ID
+
+f)Compression: producers can compress messages before sending them to the broker.
+props.put("compression.type", "snappy");        // or "gzip" or "lz4"
+
+
