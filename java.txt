@@ -267,7 +267,7 @@ public class Car {
 Car.ManualBook mb = new Car.ManualBook()
 
 
-1) Inheritencte
+1) Inheritencte - One class acquires the properties and behaviours of another class using the extends keyword.
 
 Inherit from parent             extends                 Child gets all parent members
 Call parent constructor         super()                 Must be first line in child constructor
