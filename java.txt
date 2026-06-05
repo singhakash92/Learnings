@@ -80,6 +80,10 @@ catch
 finally
 throw - use to throw an exception
 throws - warns other that a exception wil be thrown so catch it and manage it
+try + finally
+try + catch + finally
+****NO catch + finally
+NO alone finally****
 
 Autoboxing is automatic conversion of primitives to wrapper objects, and unboxing is the reverse — both done by the compiler to bridge primitives and the object-oriented world of Java.
 int num = 5;
