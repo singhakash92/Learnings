@@ -342,6 +342,38 @@ java code execution:
     a)acts as a look-up table(if a line is getting interpreted again and again, it says take it from me me and do the execution faster)
 
 
+Abstract class:
+
+abstract function : these functions only have signature and no body
+abstract class: they are like normal class but they might have abstract function: we cannot create obj of abstract class because they have missing function, there is a work around while creating object complete the function
+trick: some class will extend it and override the missing function body
+
+****if any function inside a class is abstract the class needs to be abstract*****
+- abstract (static function ) : NO - static function cannot be overridden, and abstract functions are overriden
+- abstract constructor - we can not have object of abstract class, so no abstract constructor
+- abstract (final method/class) - final method cannot be overriden, and abstract needs to be overriden
+- private abstract function - abstract fun need to be overriden, child cannot see private
+
+-all abstract function are by default "default" or else we can make public or protected,
+- variable can be of any type
+- extended using "extends"
+- class can extend only one abstract class
+
+
+
+
+
+Interface-blueprint of class
+we cannot create object of interface 
+- only abstract functions
+-all functionas are by Default "public" - need to be overridden by some class
+- all variable are by Default "public static final" - public access from anywhere, static since we cannot create obj, final since we cannot create object initialize here only
+-implemented using implements
+-class can implement multiple interfaces
+-static method should have body in interface,because we cannot create object of interface
+
+
+
 
 🔁 7. Loop through HashMap
 Method 1: entrySet (MOST USED)
@@ -395,3 +427,5 @@ public class IteratorExamples {
         System.out.println("Sum of evens: " + sum); // 20
     }
 }
+
+

@@ -3,16 +3,18 @@
 Kafka cluster : group of brokers + zookeeper/kraft(broker cordinator)
 Broker:A Kafka server that stores and manages data.
 
-    Producer: A Producer is a client that publishes(writes) messages to Kafka topics.
-    ProducerRecord<String, String> record = new ProducerRecord<>(
-    "orders-topic",   // topic
-    2,                // partition (optional)
-    1234567890L,      // timestamp (optional)
-    "order-101",      // key (optional)
-    "{ ... }",        // value (required)
-    headers           // headers (optional)
+Producer: A Producer is a client that publishes(writes) messages to Kafka topics.
+ProducerRecord<String, String> record = new ProducerRecord<>(
+"orders-topic",   // topic
+2,                // partition (optional)
+1234567890L,      // timestamp (optional)
+"order-101",      // key (optional)
+"{ ... }",        // value (required)
+headers           // headers (optional)
 );
 Consumer: A Consumer is a client that subscribes to and reads messages from Kafka topics.
+A topic is a logical categorisation of the messages
+partition: Topics are split into partitions. this is where the messages are actually logged
 
 function of producer:
 a)Serialization : convertion java object to byte stream
@@ -40,5 +42,55 @@ props.put("enable.idempotence", "true");        // Kafka assigns a unique produc
 
 f)Compression: producers can compress messages before sending them to the broker.
 props.put("compression.type", "snappy");        // or "gzip" or "lz4"
+
+
+partition:Topics are split into partitions. this is where the messages are actually logged
+Scalability → data spread across brokers
+Parallelism → multiple consumers can read simultaneously
+Ordering guarantee → order maintained within a partition
+High throughput → producers/consumers work concurrently
+
+How many partition we want to create for a topic, is done while creating a topic
+
+****one partition can be consumed only by one Consumer in a Consumer group*****(to avoid duplicate processing of same data in a Consumer group)
+****one consumer can read data from many partitions and across topics****
+
+Partition vs Replication
+Concept	      Purpose
+Partition ->  Parallelism and scaling
+Replica	  ->  Fault tolerance
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+offset: Every message gets an offset assigned by the broker when producer sends it to a partition. The offset is a unique sequential ID/number that represents the position of the message within the partition. Consumers use offsets to keep track of which messages they have consumed/read.
+
+
+
 
 
