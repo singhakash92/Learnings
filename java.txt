@@ -428,4 +428,96 @@ public class IteratorExamples {
     }
 }
 
+***************Casting required when you are trying to fit Big type in Small************
+Genrics:Generic types allow you to define a class, interface, or method with placeholders (type parameters) for the data types they will work with
+
+1) make code compatible for multiple data types //reusable
+2)Type safety (catch errors at compile time)
+
+*****IMP*********
+ - at complile time we cannot create a object of type T
+ - workaround is to create a object of type Object and then typecast to T when required
+
+public class CustomArrayList<T> {
+
+    private Object[] data; ///
+    private static  int defaultSize = 10;
+    private int size = 0;
+
+    public CustomArrayList(){
+        this.data = new Object[defaultSize]; ///
+    }
+}
+
+ - we can restrict what should be type of T(more type checking)
+ public class CustomArrayList<T extends Number> 
+ T can be only a number
+
+
+
+
+
+ comparisson
+
+ 1)Comparable<T> Interface : T - object with which to compare, obv with itself
+ this gives a class it's natural ordering how the objects should compare among themselves
+ - this interface has a function compareTo(obv our class implementing this need to override it, interface duhh!!) this return positve 0 negative
+ package org.example;
+
+public class Student implements Comparable<Student>{
+
+    String name ;
+    int roll;
+    float percentage;
+
+    public Student(String name , int roll,float percentage){
+        this.name = name;
+        this.roll = roll;
+        this.percentage = percentage;
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        if(this.percentage > o.percentage) return 1;
+        else if (this.percentage == o.percentage) return 0;
+        else return -1;
+
+    }
+}
+
+ if(akash.compareTo(golu) < 0){
+            System.out.println("golu is greater than akash");
+        }
+
+
+- compartor - not the natural ordering
+- we use this when we do not own the class
+- multiple comparator for a class
+- written outside the class
+
+Comparator<Student> comparator = (s1, s2) -> s1.marks - s2.marks;
+students.sort(comparator);
+students.sort((s1, s2) -> s1.name.compareTo(s2.name));
+
+
+Return Value	Meaning(for both comparable and compartor)
+<0	First object comes before second object
+0	Both are equal
+> 0	First object comes after second object
+
+
+Functional Interface: class with only one abstract method, rest static private can be in any number
+interface Calculator {
+    int add(int a, int b);
+}
+traditional : create a implementation class of this, then create a object then use the add function 
+Lambda way :  
+Calculator calc = (a, b) -> a + b;  //internally creates the implementation class
+System.out.println(calc.add(5, 10));
+
+
+
+
+
+
 
