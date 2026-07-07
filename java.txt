@@ -431,7 +431,6 @@ public class IteratorExamples {
         System.out.println("Sum of evens: " + sum); // 20
     }
 }
-<<<<<<< HEAD
 
 ***************Casting required when you are trying to fit Big type in Small************
 Genrics:Generic types allow you to define a class, interface, or method with placeholders (type parameters) for the data types they will work with
@@ -526,5 +525,3 @@ System.out.println(calc.add(5, 10));
 
 
 
-=======
->>>>>>> 177e4ecc896b8a8bceaa9d480f17b91a194a3a98
