@@ -80,6 +80,10 @@ catch
 finally
 throw - use to throw an exception
 throws - warns other that a exception wil be thrown so catch it and manage it
+try + finally
+try + catch + finally
+****NO catch + finally
+NO alone finally****
 
 Autoboxing is automatic conversion of primitives to wrapper objects, and unboxing is the reverse — both done by the compiler to bridge primitives and the object-oriented world of Java.
 int num = 5;
@@ -263,7 +267,7 @@ public class Car {
 Car.ManualBook mb = new Car.ManualBook()
 
 
-1) Inheritencte
+1) Inheritencte - One class acquires the properties and behaviours of another class using the extends keyword.
 
 Inherit from parent             extends                 Child gets all parent members
 Call parent constructor         super()                 Must be first line in child constructor
@@ -427,6 +431,7 @@ public class IteratorExamples {
         System.out.println("Sum of evens: " + sum); // 20
     }
 }
+<<<<<<< HEAD
 
 ***************Casting required when you are trying to fit Big type in Small************
 Genrics:Generic types allow you to define a class, interface, or method with placeholders (type parameters) for the data types they will work with
@@ -521,3 +526,5 @@ System.out.println(calc.add(5, 10));
 
 
 
+=======
+>>>>>>> 177e4ecc896b8a8bceaa9d480f17b91a194a3a98

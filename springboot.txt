@@ -98,8 +98,32 @@ dev stage and prod, DB connection url, different for different env
 
 
 6)ObjectMapper class in Jackson library(********Used for JSON mapping with java Object vise versa)#####DTO creation
-used for Serializing -> java object to JSON/xml
-        deserializing -> json to java object
+used for Serializing -> java object to JSON/xml(writeValue(jsonfile, class))
+        deserializing -> json to java object(readValue(jsonfile, Class.class))
+we can define how serialization and deserization should work in application.properties or in @configuration file
+ex: @Configuration
+public class JacksonConfig {
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+
+        // ── Serialization settings ─────────────────────────────
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);  // dates as strings not numbers
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);               // pretty print
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);  // skip nulls globally
+
+        // ── Deserialization settings ───────────────────────────
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES); // ignore unknown fields
+        mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT); // "" → null
+
+        // ── Naming strategy ────────────────────────────────────
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE); // camelCase → snake_case
+
+        return mapper;
+    }
+}
+
 
 public class Employee {
 
@@ -107,7 +131,7 @@ public class Employee {
     private int id;                  // while working internally we use id
 
     @JsonIgnore                       // exclude from serialization and deserializing
-    private String password;          // when json is send back to user this filed is not present there
+    private String password;          //// never appears in request or response
 
     @JsonAlias({"emp_name", "name"})  // accept multiple JSON key names coming from user during deserializing but returned is name
     private String name;
@@ -220,3 +244,27 @@ return something;0
 varaiable][("name") this is coming name map it to newname]
 
 List of values- @RequestParam List<Long> id = ids?ids=1&ids=2&ids=3All parameters - @RequestParam Map<String, String> params =?key1=val1&key2=val2
+
+
+
+9)  ResponseEntity<T> -represents the entire HTTP response(body, header and status code)
+// ❌ Less control — always 200, no way to change status
+@GetMapping("/users/{id}")
+public User getUser(@PathVariable Long id) {
+    return userService.findById(id);
+}
+
+// ✅ Full control — status + headers + body
+@GetMapping("/users/{id}")
+public ResponseEntity<User> getUser(@PathVariable Long id) {
+    User user = userService.findById(id);
+    return ResponseEntity.ok(user);  // 200 OK + User as JSON body
+}
+
+
+return ResponseEntity.ok(user);
+return ResponseEntity.status(HttpStatus.CREATED).body(user);
+return ResponseEntity
+        .status(HttpStatus.CREATED)
+        .headers(headers)
+        .body(savedUser);
