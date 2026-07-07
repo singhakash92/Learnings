@@ -521,6 +521,20 @@ System.out.println(calc.add(5, 10));
 
 
 
+List<Integer> list = List.of(1,2,3,5,4,6,2);
+
+ list.stream()
+ .filter( x -> x%2 ==0)
+ .map(x -> x *2)
+ .distinct()  //remove duplicate
+ .sorted()
+ .sorted((a,b) -> (b -a))  //desc order by passing comparator 
+ .limit(n)    ///starting ke n elements
+ .skip(n)    /// starting se n elements skip karna hai
+ .max((a, b) -> a -b) // it takes in a comparator, last one is max
+  .collect(Collectors.toList())
+
+
 
 
 
