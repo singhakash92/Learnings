@@ -528,10 +528,10 @@ List<Integer> list = List.of(1,2,3,5,4,6,2);
  .map(x -> x *2)
  .distinct()  //remove duplicate
  .sorted()
- .sorted((a,b) -> (b -a))  //desc order by passing comparator 
+ .sorted((a,b) -> (b -a))  //desc order by passing comparator //ctrl + click read
  .limit(n)    ///starting ke n elements
  .skip(n)    /// starting se n elements skip karna hai
- .max((a, b) -> a -b) // it takes in a comparator, last one is max
+ .max((a, b) -> a -b) // it takes in a comparator, last one is max  //ctrl + click read
   .collect(Collectors.toList())
 
 
