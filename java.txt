@@ -526,13 +526,44 @@ List<Integer> list = List.of(1,2,3,5,4,6,2);
  list.stream()
  .filter( x -> x%2 ==0)
  .map(x -> x *2)
- .distinct()  //remove duplicate
+ .distinct()    
  .sorted()
  .sorted((a,b) -> (b -a))  //desc order by passing comparator //ctrl + click read
  .limit(n)    ///starting ke n elements
  .skip(n)    /// starting se n elements skip karna hai
  .max((a, b) -> a -b) // it takes in a comparator, last one is max  //ctrl + click read
   .collect(Collectors.toList())
+
+
+
+Enums:
+-we used to create constants in class, then interface(public static final) then enum
+- we need fixed set of objects(cannot create any new further objects,since, privte constructor)
+public enum Day {
+    Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+}
+
+public enum Day {
+    Sunday("sunday"), Monday("monday"), Tuesday("tuesday"), Wednesday("wednesday"), Thursday("thursday"), Friday("friday"), Saturday("saturday");
+
+    private String dayname;
+
+    private Day(String dayname) {
+        System.out.println("our hand written constructor called");
+        this.dayname = dayname;
+    }
+
+    public String display(){
+        return this.name();
+    }
+}
+
+
+*************the above code is boiled down to the photo(converted to class, SO WE CAN HAVE OUR OWN FUNCTIONS, variable and constructor IN ENUM AS WELL************
+- *************all the variable are instanceof of Day*********
+ex. Day monday = Day.Monday //object of monday, direct access because static, look ahead it has new Day("Monday)
+monday.name().toLowerCase();
+Day.values() //list of all the objects
 
 
 
