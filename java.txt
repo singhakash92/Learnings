@@ -296,14 +296,30 @@ variablename.bark = no access no run
 final - method, can not be overridden by child
 final - class, can not be extended by child
 static - method, cannot be overridden by child
+*function is public in parent - while overridding we must increase the scope or maintain same not lower it down*
+
 
 
 2) polymorphism,
 a)compile time/static polymorphism; method overloading,
 2 methods with same name but different signature(reutrn tupe, no of args, type of args), the one we call is implemented
+******two functions with same name but different types of parameter long and one is float, now we call using int, automatic typecasting happens ******
+*****automatic overtakes autoboxing*********
+
+
+
+byte - short - int - long - float - double
+    \
+     char - int - long - float - double
+
 b)run time/dynamic: method overridding
 child inherits parent class 
 both have exactyle same method(same naem and signature) but the child will overridd the parent
+
+
+Overloading = same name, different parameters, resolved by what you pass in.
+Overriding = same name, same signature, "instance methods", resolved by what object you actually have at runtime.
+Hiding(happens only with static methods) = same name, same signature, "static methods", resolved by what type your reference variable is declared as.
 
 3)encapsulation: Wrapping data (variables) and methods together inside the class, and HIDING the data from outside. and allowing controlled access of it
 achieve : private variables + public getters/setters
