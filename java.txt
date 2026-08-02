@@ -508,6 +508,9 @@ public class Student implements Comparable<Student>{
  if(akash.compareTo(golu) < 0){
             System.out.println("golu is greater than akash");
         }
+Collections.sort() 
+or 
+list.sort(null)   //students.sort(null)  //null tells use natural ordering
 
 
 - compartor - not the natural ordering
@@ -521,12 +524,12 @@ students.sort((s1, s2) -> s1.name.compareTo(s2.name));
 
 
 Return Value	Meaning(for both comparable and compartor)
-<0	First object comes before second object
+> 0	First object is bigger,  comes after second object
 0	Both are equal
-> 0	First object comes after second object
+<0	First object smaller,  comes before second object
 
 
-Functional Interface: class with only one abstract method, rest static private can be in any number
+Functional Interface: Interface with only one abstract method, rest static private can be in any number
 interface Calculator {
     int add(int a, int b);
 }
@@ -581,6 +584,18 @@ ex. Day monday = Day.Monday //object of monday, direct access because static, lo
 monday.name().toLowerCase();
 Day.values() //list of all the objects
 
+
+
+lambda function
+public void sum(int a, int b){
+    return a+ b;
+}
+i) remove access modifier
+ii)remove return type
+iii)remove name
+iv) only one statement? remove return keyword and {} 
+v) remove data type of parameter, compiler guesses it, (a, b) => a +b
+vi) only one parameter, remove (), s => s.length();
 
 
 
