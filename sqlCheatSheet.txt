@@ -1,0 +1,174 @@
+1) CREATE DATABASE IF NOT EXISTS db_name;
+
+2) CREATE TABLE table_name(
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    dept VARCHAR(100),
+    salary INT DEFAULT 50000,
+    managers_id INT NOT NULL,  --first define the column then makeit FK
+    FOREIGN KEY (manager_id) REFERENCES managers(id) ON DELETE CASCADE
+);
+
+3) INSERT INTO table_name (column name seperated by comma's)
+VALUES(corresponding values);
+
+4) UPDATE table_name
+SET column_name = new value
+WHERE 
+
+5) DELETE FROM table_name
+WHERE
+
+
+6)
+SELECT *  -- display everything
+
+SELECT col1, col2   - display only column1 and column2
+
+
+alias - output column name displayed will be something_meaningful and something different
+SELECT 
+col1 AS something_meaningful,  -- no need of ""
+col2 AS "something different"   -need "" as there is a space in alias 
+
+
+SELECT DISTINCT col1   -- display only distinct value in col1
+
+
+7) FROM 
+
+
+
+6)
+Order BY - first sort by col 1, then now everyone tieing in will be sorted as per col2
+Group BY - jitne bhi column name mentioned use that as one group - now accumulate everyone belonging to this group , then use aggregate functions on it
+
+
+*********if we do SELECT * in GROUP it will only show row with unique group not whole************
+
+Q)ORDER BY
+ORDER BY A, B, C;
+Sort by A → if tied, sort by B → if still tied, sort by C.
+1)  SELECT * FROM sales 
+    ORDER BY region, amount DESC;
+
+    a) First: Sorted by region alphabetically:
+    East
+    North
+    South
+    b) Within each region, sorted by amount DESC:
+
+
+
+*******************
+we can write only those column in select while using GROUP BY which are mentioned in GROUP BY, if we want to use any other column it must by in AGRREGRATE functions
+
+reason: GROUP BY dept, in one department we can have multiple name akash, golu, shubham, xyz that's why we can use only those col which are mentioned in group BY
+
+BUTTT
+if the column we are using in GROUP BY is a Primary key
+ex. emp_id
+in this case it will result only in one name, surname 
+so we can use name and surname as well in the select
+*******************
+
+Q) GROUP BY - find all unique (col1, col2, coln) combinations now its one group
+1)  SELECT customer, region, COUNT(*) as count, SUM(amount) as total
+    FROM sales
+    GROUP BY customer, region;
+
+    a) Find all unique (customer, region) combinations
+    John + North
+    John + South
+    Sarah + North
+    Sarah + East
+    Mike + South
+    b) Apply aggregate functions to each group
+    John + North  → COUNT=2, SUM=52000 (50000+2000)
+    John + South  → COUNT=1, SUM=5000
+    Sarah + North → COUNT=2, SUM=103000 (55000+48000)
+    Sarah + East  → COUNT=1, SUM=25000
+    Mike + South  → COUNT=2, SUM=63000 (48000+15000)
+
+
+    customer | region | count | total
+    ---------|--------|-------|--------
+    John     | North  | 2     | 52000
+    John     | South  | 1     | 5000
+    Sarah    | North  | 2     | 103000
+    Sarah    | East   | 1     | 25000
+    Mike     | South  | 2     | 63000
+
+
+
+7) HAVING always comes after GROUP BY
+(its like applying WHERE clause but to whole group)
+SELECT customer, region, COUNT(*) as count, SUM(amount) as total
+    FROM sales
+    GROUP BY customer, region
+    HAVING SUM(amount) > 100000;
+
+    ***columns that we use inside having follows same pattern as of select while using in group BY******
+
+8) WHERE is applied to the whole table
+
+9) priority of each clause
+From/JOIN → Where → Group → Having → Select → Distinct → Order → Limit.
+
+(F W G H S D O L)
+"From Where Groups Have Selected Data, Order Later."
+    
+    imp question 
+    SELECT salary * 12 AS annual_salary
+    FROM Employees
+    ORDER BY annual_salary;
+    So ORDER BY happens after SELECT, meaning the alias annual_salary is available.
+
+
+10) Primary KEY
+   book_id INT PRIMARY KEY  -- this field should always be unique + not_null
+
+11) composite PRIMARY KEY
+
+    book_id INT
+    category_id INT
+    PRIMARY KEY(book_id , category_id);  -- combination of Book_id and category_id should always be unique 
+
+
+**********join syntax
+SELECT
+FROM table1
+JOIN_NAME table2    -- JOIN_NAME = INNER JOIN, LEFT JOIN, RIGHT JOIN
+ON table1.col = table2.col;
+
+
+******** how to write multiple joins *********
+    SELECT *
+    FROM books b JOIN authors a ON b.author_id = a.author_id
+    JOIN book_categories bc ON bc.book_id = b.book_id
+    JOIN categories c ON bc.category_id = c.category_id
+
+12) INNER JOIN or JOIN - returns common rows between 2 tables
+    (join two table(cross product), and retains the row which are common between the table based on the specified condition )
+
+    SELECT * 
+    FROM authors
+    INNER JOIN books
+    ON authors.author_id = books.book_id;
+
+12) LEFT JOIN or LEFT OUTER JOIN - common rows between 2 tables + all rows in left table
+-- common rows records between two table + all records in left table
+-- for a row in left , if no match exists in right table, null value will be returned for right table columns 
+
+    SELECT c.customer_id, c.customer_name
+    FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id
+    LEFT JOIN shipping s ON o.order_id = s.order_id
+    -- WHERE o.order_id IS NOT NULL AND s.shipping_id IS NULL 
+    GROUP BY c.customer_id
+
+
+13) RIGHT JOIN or RIGHT OUTER JOIN -  common rows between 2 tables + all rows in right table
+-- common rows records between two table + all records in right table
+-- for a row in right , if no match exists in left table, null value will be returned for left table columns 
+
+
