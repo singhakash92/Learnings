@@ -172,3 +172,269 @@ ON table1.col = table2.col;
 -- for a row in right , if no match exists in left table, null value will be returned for left table columns 
 
 
+Window function - Allows to perform the calculation across a set of rows, but don't combine all rows into one row.
+a)aggregate function (SUM, MAX, MIN, AVG, COUNT)
+b)ranking functions(ROW_NUMBER, RANK, DENSE_RANK)
+c)value function(FIRST_VALUE, LAST_VALUE, LEAD, LAG)
+
+FUNCTION() OVER(
+    PARTITION BY ...
+    ORDER BY ...
+    ROWS BETWEEN ...
+)
+              OVER
+               |
+       ┌───────┴────────┐
+       ↓                ↓
+   PARTITION          ORDER
+      ↓                 ↓
+ "Which group?"    "What order?"
+                         |
+                         ↓
+                      ROWS
+                         ↓
+                "Which rows exactly?"
+
+
+14) AGRREGRATE functions
+SUM
+AVG
+MAX
+MIN
+COUNT
+*if we use aggregate function they combine all the rows into one row and return the result*
+
+output:
+total_salary
+88400.000
+
+
+15) OVER()  --Perform this calculation across a set of rows, but don't combine all rows into one row."
+SELECT
+    name,
+    SUM(salary) OVER() AS total_salary
+FROM Employees;
+
+output:
+name    total_salary
+akash	88400.0000
+sky	    88400.0000
+golu	88400.0000
+gogo	88400.0000
+joules	88400.0000
+
+SUM(salary)
+      ↓
+combines rows
+BUTTTT
+
+SUM(salary) OVER()
+      ↓
+calculates across rows
+but keeps the rows
+
+
+
+16) PARTITION BY 
+: is similar to GROUP BY conceptually, but it doesn't collapse the rows.
+-- perform this operation across a set fo rows rows which are partioned by department, and do not collapse all the rows into one
+
+
+SELECT employee_name ,department, SUM(salary) OVER(
+	PARTITION BY department
+) as dept_total
+FROM employees_table;
+
+employee_name  department   dept_total
+sky	            HR	        235000
+gogo	        HR	        235000
+akash	        IT	        157000
+joules	        IT	        157000
+golu	        SALES	    50000
+
+
+17) ORDER BY  - running total 
+: "Calculate the sum while moving through the rows in salary order." 
+SUM(salary) OVER(
+    ORDER BY salary
+)
+
+Initial table : 
+1	John	IT	60000
+2	Sarah	HR	50000
+3	Mike	Finance	70000
+4	David	IT	65000
+5	Emma	Marketing	55000
+			
+final table :
+Sarah	50000	HR	        50000
+Emma	55000	Marketing	105000
+John	60000	IT	        165000
+David	65000	IT	        230000
+Mike	70000	Finance	    300000
+
+
+18) PARTITION BY + ORDER BY - for each PARTITION calculates the running total 
+SELECT
+    name,
+    department,
+    salary,
+    SUM(salary) OVER(
+        PARTITION BY department
+        ORDER BY salary
+    ) AS running_total
+FROM Employees;
+
+name   salary   dept        running_total
+Mike	70000	Finance	    70000
+Sarah	50000	HR	        50000
+John	60000	IT	        60000
+David	65000	IT	        125000
+Emma	55000	Marketing	55000
+
+keep all rows visible :
+SUM(salary) OVER()  - find the total and display next to each row
+SUM(salary) OVER( PARTITION BY dept) - create multiple depts, display dept wise, calculate total of each department and displays infornt of each row
+SUM(salary) OVER(ORDER BY salary) - sorts the display table salary wise, now calculates running total for each row, and display in front of it
+SUM(salary) OVER(PARTITION BY dept ORDER BY salary) - create multiple depts, display dept wise, sorts Within dept, now calculates running total for each row in a dept, and display in front of it
+
+
+
+18) RANKING - only ORDER BY
+ROW_NUMBER()
+RANK()
+DENSE_RANK()
+ORDER BY matters because : "Based on what should I rank these rows?"
+
+ROW_NUMBER():simply assigns a sequential number to every row.(1,2,3,4,5,6...)
+SELECT
+    name,
+    salary,
+    ROW_NUMBER() OVER(
+        ORDER BY salary DESC
+    ) AS row_num
+FROM Employees;
+    - SQL first sorts the rows: 90.000, 80.000, 80.000, 70.000, 70.0000, 60.000
+    - Then assigns numbers:     1       2       3       4       5        6
+
+
+
+A = 100
+B = 90
+C = 90
+D = 80
+
+ROW_NUMBER : Everyone gets a unique position:
+A → 1
+B → 2
+C → 3
+D → 4
+
+RANK : Ties share rank, and gaps appear: 
+A → 1
+B → 2
+C → 2
+D → 4
+
+DENSE_RANK : Ties share rank, but no gaps:
+A → 1
+B → 2
+C → 2
+D → 3
+
+
+19) RANKING - PARTITION BY + ORDER BY
+            (within each partition we rank)
+
+    
+
+
+20) LAG/LEAD
+LAG - what's the previous value
+LEAD - what's the next value
+
+LAG/LEAD(column_name, offset, default_value)
+-we are finding lag/lead of which column
+-offset ex. offset=2, iske 2 pahle ki value kya thi, if n nth previous value kya thi
+-if o = 1, the first row has previous value = NULL but we do not want null in table so we give default value
+
+if partition is there then - group wise only
+if order is there - display in that order 
+
+WHY ORDER IS A MUST HERE JUST LIKE IN RANKING
+BECAUSE WE WANT THE PREVIOUS/RANKING OF THIS ROW W.R.T TO WHAT? IF IT'S NOT ORDERED BT
+
+
+LAG
+SELECT
+    month,
+    sales,
+    LAG(sales, 1, 0) OVER(
+        ORDER BY month
+    ) AS previous_sales
+FROM Sales;
+
+SELECT
+    month,
+    department,
+    sales,
+    LAG(sales) OVER(
+        PARTITION BY department
+        ORDER BY month
+    ) AS previous_sales
+FROM Sales;
+
+output
+| month | sales | previous_sales |
+| ----- | ----: | -------------: |
+| Jan   |   100 |              0 |
+| Feb   |   150 |            100 |
+| Mar   |   130 |            150 |
+| Apr   |   200 |            130 |
+| May   |   250 |            200 |
+
+
+21) value functions
+FIRST_VALUE - what's the first value in this table/group(if partition by is there)
+LAST_VALUE - what's the last value in this table/group(if partition by is there)
+NTH_VALUE - what's the Nth value in this table/group(if partition by is there)
+
+FIRST_VALUE(column_name)
+LAST_VALUE(column_name)
+NTH_VALUE(column_name, n)
+
+SELECT
+    employee,
+    department,
+    salary,
+    FIRST_VALUE(salary) OVER(
+        PARTITION BY department
+        ORDER BY salary
+    ) AS highest_salary
+FROM Employees;
+
+output: 
+| employee | department | salary | highest_salary |
+| -------- | ---------- | -----: | -------------: |
+| Sarah    | IT         |  90000 |          90000 |
+| Alice    | IT         |  80000 |          90000 |
+| John     | IT         |  60000 |          90000 |
+| David    | HR         |  70000 |          70000 |
+| Bob      | HR         |  50000 |          70000 |
+
+
+*******************ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD, FIRST_VALUE, LAST_VALUE, NTH_VALUE - always have ORDER BY for a meaning full result*****************
+
+
+
+
+
+
+
+
+
+
+
+			
+
+
